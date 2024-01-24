@@ -1,0 +1,70 @@
+﻿@model Frontend.Models.BookModel
+
+@{
+    ViewData["Title"] = "EditBook";
+}
+
+<h1>Edit Form</h1>
+
+<h4>Edit book "@Model.Title"</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditBookById">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group" style="display:none;">
+                <label asp-for="BookId" class="control-label"></label>
+                <input asp-for="BookId" class="form-control" />
+                <span asp-validation-for="BookId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Author" class="control-label"></label>
+                <input asp-for="Author" class="form-control" />
+                <span asp-validation-for="Author" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Series" class="control-label"></label>
+                <input asp-for="Series" class="form-control" />
+                <span asp-validation-for="Series" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Genres" class="control-label"></label>
+                @{
+                    List<SelectListItem> options = new List<SelectListItem>();
+                    options.Add(new SelectListItem { Text = "Fantastyka", Value = "Fantastyka" });
+                    options.Add(new SelectListItem { Text = "SciFi", Value = "SciFi" });
+                    options.Add(new SelectListItem { Text = "Romans", Value = "Romans" });
+                    options.Add(new SelectListItem { Text = "Dramat", Value = "Dramat" });
+                }
+                @Html.ListBoxFor(m => m.Genres, options, new { @class = "form-control" })
+                <span asp-validation-for="Genres" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Published" class="control-label"></label>
+                <input asp-for="Published" class="form-control" />
+                <span asp-validation-for="Published" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Books">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
